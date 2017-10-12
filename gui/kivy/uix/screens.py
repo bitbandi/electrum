@@ -17,15 +17,15 @@ from kivy.lang import Builder
 from kivy.factory import Factory
 from kivy.utils import platform
 
-from electrum.util import profiler, parse_URI, format_time, InvalidPassword, NotEnoughFunds
-from electrum import bitcoin
-from electrum.util import timestamp_to_datetime
-from electrum.paymentrequest import PR_UNPAID, PR_PAID, PR_UNKNOWN, PR_EXPIRED
+from electrum_dmd.util import profiler, parse_URI, format_time, InvalidPassword, NotEnoughFunds
+from electrum_dmd import bitcoin
+from electrum_dmd.util import timestamp_to_datetime
+from electrum_dmd.paymentrequest import PR_UNPAID, PR_PAID, PR_UNKNOWN, PR_EXPIRED
 
 from context_menu import ContextMenu
 
 
-from electrum_gui.kivy.i18n import _
+from electrum_dmd_gui.kivy.i18n import _
 
 class EmptyLabel(Factory.Label):
     pass
@@ -176,7 +176,7 @@ class SendScreen(CScreen):
     payment_request = None
 
     def set_URI(self, text):
-        import electrum
+        import electrum_dmd
         try:
             uri = electrum.util.parse_URI(text, self.app.on_pr)
         except:
@@ -218,7 +218,7 @@ class SendScreen(CScreen):
             # it sould be already saved
             return
         # save address as invoice
-        from electrum.paymentrequest import make_unsigned_request, PaymentRequest
+        from electrum_dmd.paymentrequest import make_unsigned_request, PaymentRequest
         req = {'address':self.screen.address, 'memo':self.screen.message}
         amount = self.app.get_amount(self.screen.amount) if self.screen.amount else 0
         req['amount'] = amount
@@ -253,7 +253,7 @@ class SendScreen(CScreen):
                 self.app.show_error(_('Recipient not specified.') + ' ' + _('Please scan a Bitcoin address or a payment request'))
                 return
             if not bitcoin.is_address(address):
-                self.app.show_error(_('Invalid Bitcoin Address') + ':\n' + address)
+                self.app.show_error(_('Invalid Diamond Address') + ':\n' + address)
                 return
             try:
                 amount = self.app.get_amount(self.screen.amount)
@@ -352,7 +352,7 @@ class ReceiveScreen(CScreen):
         Clock.schedule_once(lambda dt: self.update_qr())
 
     def get_URI(self):
-        from electrum.util import create_URI
+        from electrum_dmd.util import create_URI
         amount = self.screen.amount
         if amount:
             a, u = self.screen.amount.split()
@@ -368,7 +368,7 @@ class ReceiveScreen(CScreen):
 
     def do_share(self):
         uri = self.get_URI()
-        self.app.do_share(uri, _("Share Bitcoin Request"))
+        self.app.do_share(uri, _("Share Diamond Request"))
 
     def do_copy(self):
         uri = self.get_URI()

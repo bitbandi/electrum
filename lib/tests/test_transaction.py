@@ -56,7 +56,7 @@ class TestTransaction(unittest.TestCase):
         expected = {
             'inputs': [{
                 'type': 'p2pkh',
-                'address': '1446oU3z268EeFgfcwJv6X2VBXHfoYxfuD',
+                'address': 'LNH44gMp6kNHu4Npo5JDNY6FPjewvMKDnz',
                 'num_sig': 1,
                 'prevout_hash': '3140eb24b43386f35ba69e3875eb6c93130ac66201d01c58f598defc949a5c2a',
                 'prevout_n': 0,
@@ -67,7 +67,7 @@ class TestTransaction(unittest.TestCase):
                 'x_pubkeys': ['ff0488b21e03ef2afea18000000089689bff23e1e7fb2f161daa37270a97a3d8c2e537584b2d304ecb47b86d21fc021b010d3bd425f8cf2e04824bfdf1f1f5ff1d51fadd9a41f9e3fb8dd3403b1bfe00000000']}],
             'lockTime': 0,
             'outputs': [{
-                'address': '14CHYaaByjJZpx4oHBpfDMdqhTyXnZ3kVs',
+                'address': 'LNREont24PYd5kkxTKoxVNhbugLowNb7H8',
                 'prevout_n': 0,
                 'scriptPubKey': '76a914230ac37834073a42146f11ef8414ae929feaafc388ac',
                 'type': TYPE_ADDRESS,
@@ -79,12 +79,12 @@ class TestTransaction(unittest.TestCase):
         self.assertEquals(tx.deserialize(), None)
 
         self.assertEquals(tx.as_dict(), {'hex': unsigned_blob, 'complete': False, 'final': True})
-        self.assertEquals(tx.get_outputs(), [('14CHYaaByjJZpx4oHBpfDMdqhTyXnZ3kVs', 1000000)])
-        self.assertEquals(tx.get_output_addresses(), ['14CHYaaByjJZpx4oHBpfDMdqhTyXnZ3kVs'])
+        self.assertEquals(tx.get_outputs(), [('LNREont24PYd5kkxTKoxVNhbugLowNb7H8', 1000000)])
+        self.assertEquals(tx.get_output_addresses(), ['LNREont24PYd5kkxTKoxVNhbugLowNb7H8'])
 
-        self.assertTrue(tx.has_address('14CHYaaByjJZpx4oHBpfDMdqhTyXnZ3kVs'))
-        self.assertTrue(tx.has_address('1446oU3z268EeFgfcwJv6X2VBXHfoYxfuD'))
-        self.assertFalse(tx.has_address('1CQj15y1N7LDHp7wTt28eoD1QhHgFgxECH'))
+        self.assertTrue(tx.has_address('LNREont24PYd5kkxTKoxVNhbugLowNb7H8'))
+        self.assertTrue(tx.has_address('LNH44gMp6kNHu4Npo5JDNY6FPjewvMKDnz'))
+        self.assertFalse(tx.has_address('LWdgGJGqSmaGYcp6e21RvpGmcuexJorNEH'))
 
         self.assertEquals(tx.serialize(), unsigned_blob)
 
@@ -100,7 +100,7 @@ class TestTransaction(unittest.TestCase):
         expected = {
             'inputs': [{
                 'type': 'p2pkh',
-                'address': '1446oU3z268EeFgfcwJv6X2VBXHfoYxfuD',
+                'address': 'LNH44gMp6kNHu4Npo5JDNY6FPjewvMKDnz',
                 'num_sig': 1,
                 'prevout_hash': '3140eb24b43386f35ba69e3875eb6c93130ac66201d01c58f598defc949a5c2a',
                 'prevout_n': 0,
@@ -111,7 +111,7 @@ class TestTransaction(unittest.TestCase):
                 'x_pubkeys': ['02e61d176da16edd1d258a200ad9759ef63adf8e14cd97f53227bae35cdb84d2f6']}],
             'lockTime': 0,
             'outputs': [{
-                'address': '14CHYaaByjJZpx4oHBpfDMdqhTyXnZ3kVs',
+                'address': 'LNREont24PYd5kkxTKoxVNhbugLowNb7H8',
                 'prevout_n': 0,
                 'scriptPubKey': '76a914230ac37834073a42146f11ef8414ae929feaafc388ac',
                 'type': TYPE_ADDRESS,

@@ -28,12 +28,12 @@ if platform.system() in ['Linux', 'FreeBSD', 'DragonFly']:
         else:
             usr_share = os.path.expanduser('~/.local/share')
     data_files += [
-        (os.path.join(usr_share, 'applications/'), ['electrum.desktop']),
-        (os.path.join(usr_share, 'pixmaps/'), ['icons/electrum.png'])
+        (os.path.join(usr_share, 'applications/'), ['electrum-dmd.desktop']),
+        (os.path.join(usr_share, 'pixmaps/'), ['icons/electrum-dmd.png'])
     ]
 
 setup(
-    name="Electrum",
+    name="Electrum-DMD",
     version=version.ELECTRUM_VERSION,
     install_requires=[
         'pyaes',
@@ -47,42 +47,42 @@ setup(
         'PySocks>=1.6.6',
     ],
     packages=[
-        'electrum',
-        'electrum_gui',
-        'electrum_gui.qt',
-        'electrum_plugins',
-        'electrum_plugins.audio_modem',
-        'electrum_plugins.cosigner_pool',
-        'electrum_plugins.email_requests',
-        'electrum_plugins.greenaddress_instant',
-        'electrum_plugins.hw_wallet',
-        'electrum_plugins.keepkey',
-        'electrum_plugins.labels',
-        'electrum_plugins.ledger',
-        'electrum_plugins.trezor',
-        'electrum_plugins.digitalbitbox',
-        'electrum_plugins.trustedcoin',
-        'electrum_plugins.virtualkeyboard',
+        'electrum_dmd',
+        'electrum_dmd_gui',
+        'electrum_dmd_gui.qt',
+        'electrum_dmd_plugins',
+        'electrum_dmd_plugins.audio_modem',
+        'electrum_dmd_plugins.cosigner_pool',
+        'electrum_dmd_plugins.email_requests',
+        'electrum_dmd_plugins.greenaddress_instant',
+        'electrum_dmd_plugins.hw_wallet',
+        'electrum_dmd_plugins.keepkey',
+        'electrum_dmd_plugins.labels',
+        'electrum_dmd_plugins.ledger',
+        'electrum_dmd_plugins.trezor',
+        'electrum_dmd_plugins.digitalbitbox',
+        'electrum_dmd_plugins.trustedcoin',
+        'electrum_dmd_plugins.virtualkeyboard',
     ],
     package_dir={
-        'electrum': 'lib',
-        'electrum_gui': 'gui',
-        'electrum_plugins': 'plugins',
+        'electrum_dmd': 'lib',
+        'electrum_dmd_gui': 'gui',
+        'electrum_dmd_plugins': 'plugins',
     },
     package_data={
-        'electrum': [
+        'electrum_dmd': [
             'currencies.json',
             'www/index.html',
             'wordlist/*.txt',
             'locale/*/LC_MESSAGES/electrum.mo',
         ]
     },
-    scripts=['electrum'],
+    scripts=['electrum-dmd'],
     data_files=data_files,
-    description="Lightweight Bitcoin Wallet",
+    description="Lightweight Diamond Wallet",
     author="Thomas Voegtlin",
     author_email="thomasv@electrum.org",
     license="MIT Licence",
-    url="https://electrum.org",
-    long_description="""Lightweight Bitcoin Wallet"""
+    url="https://electrum-dmd.org",
+    long_description="""Lightweight Diamond Wallet"""
 )

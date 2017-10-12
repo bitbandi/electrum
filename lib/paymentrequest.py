@@ -49,8 +49,8 @@ import rsakey
 
 from bitcoin import TYPE_ADDRESS
 
-REQUEST_HEADERS = {'Accept': 'application/bitcoin-paymentrequest', 'User-Agent': 'Electrum'}
-ACK_HEADERS = {'Content-Type':'application/bitcoin-payment','Accept':'application/bitcoin-paymentack','User-Agent':'Electrum'}
+REQUEST_HEADERS = {'Accept': 'application/diamond-paymentrequest', 'User-Agent': 'Electrum-DMD'}
+ACK_HEADERS = {'Content-Type':'application/diamond-payment','Accept':'application/diamond-paymentack','User-Agent':'Electrum-DMD'}
 
 ca_path = requests.certs.where()
 ca_list = None
@@ -155,7 +155,7 @@ class PaymentRequest:
             return True
         if pr.pki_type in ["x509+sha256", "x509+sha1"]:
             return self.verify_x509(pr)
-        elif pr.pki_type in ["dnssec+btc", "dnssec+ecdsa"]:
+        elif pr.pki_type in ["dnssec+dmd", "dnssec+ecdsa"]:
             return self.verify_dnssec(pr, contacts)
         else:
             self.error = "ERROR: Unsupported PKI Type for Message Signature"
@@ -205,7 +205,7 @@ class PaymentRequest:
         if info.get('validated') is not True:
             self.error = "Alias verification failed (DNSSEC)"
             return False
-        if pr.pki_type == "dnssec+btc":
+        if pr.pki_type == "dnssec+dmd":
             self.requestor = alias
             address = info.get('address')
             pr.signature = ''
@@ -327,7 +327,7 @@ def make_unsigned_request(req):
 
 
 def sign_request_with_alias(pr, alias, alias_privkey):
-    pr.pki_type = 'dnssec+btc'
+    pr.pki_type = 'dnssec+dmd'
     pr.pki_data = str(alias)
     message = pr.SerializeToString()
     ec_key = bitcoin.regenerate_key(alias_privkey)
@@ -437,7 +437,7 @@ def serialize_request(req):
     requestor = req.get('name')
     if requestor and signature:
         pr.signature = signature.decode('hex')
-        pr.pki_type = 'dnssec+btc'
+        pr.pki_type = 'dnssec+dmd'
         pr.pki_data = str(requestor)
     return pr
 

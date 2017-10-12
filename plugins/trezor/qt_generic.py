@@ -4,14 +4,14 @@ import threading
 from PyQt4.Qt import Qt
 from PyQt4.Qt import QGridLayout, QInputDialog, QPushButton
 from PyQt4.Qt import QVBoxLayout, QLabel, SIGNAL
-from electrum_gui.qt.util import *
+from electrum_dmd_gui.qt.util import *
 from .plugin import TIM_NEW, TIM_RECOVER, TIM_MNEMONIC
 from ..hw_wallet.qt import QtHandlerBase, QtPluginBase
 
-from electrum.i18n import _
-from electrum.plugins import hook, DeviceMgr
-from electrum.util import PrintError, UserCancelled
-from electrum.wallet import Wallet, Standard_Wallet
+from electrum_dmd.i18n import _
+from electrum_dmd.plugins import hook, DeviceMgr
+from electrum_dmd.util import PrintError, UserCancelled
+from electrum_dmd.wallet import Wallet, Standard_Wallet
 
 PASSPHRASE_HELP_SHORT =_(
     "Passphrases allow you to access new wallets, each "
@@ -242,7 +242,7 @@ class QtPlugin(QtPluginBase):
             else:
                 msg = _("Enter the master private key beginning with xprv:")
                 def set_enabled():
-                    from electrum.keystore import is_xprv
+                    from electrum_dmd.keystore import is_xprv
                     wizard.next_button.setEnabled(is_xprv(clean_text(text)))
                 text.textChanged.connect(set_enabled)
                 next_enabled = False
@@ -406,7 +406,7 @@ class SettingsDialog(WindowModalDialog):
             if wallet and sum(wallet.get_balance()):
                 title = _("Confirm Device Wipe")
                 msg = _("Are you SURE you want to wipe the device?\n"
-                        "Your wallet still has bitcoins in it!")
+                        "Your wallet still has diamonds in it!")
                 if not self.question(msg, title=title,
                                      icon=QMessageBox.Critical):
                     return
@@ -481,7 +481,7 @@ class SettingsDialog(WindowModalDialog):
         settings_glayout.addWidget(pin_button, 2, 1)
         pin_msg = QLabel(_("PIN protection is strongly recommended.  "
                            "A PIN is your only protection against someone "
-                           "stealing your bitcoins if they obtain physical "
+                           "stealing your diamonds if they obtain physical "
                            "access to your %s.") % plugin.device)
         pin_msg.setWordWrap(True)
         pin_msg.setStyleSheet("color: red")
@@ -541,7 +541,7 @@ class SettingsDialog(WindowModalDialog):
         clear_pin_button.clicked.connect(clear_pin)
         clear_pin_warning = QLabel(
             _("If you disable your PIN, anyone with physical access to your "
-              "%s device can spend your bitcoins.") % plugin.device)
+              "%s device can spend your diamonds.") % plugin.device)
         clear_pin_warning.setWordWrap(True)
         clear_pin_warning.setStyleSheet("color: red")
         advanced_glayout.addWidget(clear_pin_button, 0, 2)
@@ -566,7 +566,7 @@ class SettingsDialog(WindowModalDialog):
         wipe_device_msg.setWordWrap(True)
         wipe_device_warning = QLabel(
             _("Only wipe a device if you have the recovery seed written down "
-              "and the device wallet(s) are empty, otherwise the bitcoins "
+              "and the device wallet(s) are empty, otherwise the diamonds "
               "will be lost forever."))
         wipe_device_warning.setWordWrap(True)
         wipe_device_warning.setStyleSheet("color: red")

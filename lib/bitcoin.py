@@ -35,17 +35,18 @@ from util import print_error, InvalidPassword
 
 import ecdsa
 import pyaes
+import quark_hash
 
 # Bitcoin network constants
 TESTNET = False
 NOLNET = False
-ADDRTYPE_P2PKH = 0
-ADDRTYPE_P2SH = 5
+ADDRTYPE_P2PKH = 90
+ADDRTYPE_P2SH = 8
 ADDRTYPE_P2WPKH = 6
 XPRV_HEADER = 0x0488ade4
 XPUB_HEADER = 0x0488b21e
-HEADERS_URL = "https://headers.electrum.org/blockchain_headers"
-GENESIS = "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"
+HEADERS_URL = "https://104.238.135.136/blockchain_headers"
+GENESIS = "0000029b550c0095513d9bb9dd14f88442573baca94d70e49018a510979c0f9b"
 
 def set_testnet():
     global ADDRTYPE_P2PKH, ADDRTYPE_P2SH, ADDRTYPE_P2WPKH
@@ -53,13 +54,13 @@ def set_testnet():
     global TESTNET, HEADERS_URL
     global GENESIS
     TESTNET = True
-    ADDRTYPE_P2PKH = 111
-    ADDRTYPE_P2SH = 196
+    ADDRTYPE_P2PKH = 139
+    ADDRTYPE_P2SH = 19
     ADDRTYPE_P2WPKH = 3
     XPRV_HEADER = 0x04358394
     XPUB_HEADER = 0x043587cf
     HEADERS_URL = "https://headers.electrum.org/testnet_headers"
-    GENESIS = "000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"
+    GENESIS = "0000029b550c0095513d9bb9dd14f88442573baca94d70e49018a510979c0f9b"
 
 def set_nolnet():
     global ADDRTYPE_P2PKH, ADDRTYPE_P2SH, ADDRTYPE_P2WPKH
@@ -197,6 +198,10 @@ def sha256(x):
 def Hash(x):
     if type(x) is unicode: x=x.encode('utf-8')
     return sha256(sha256(x))
+
+def quarkHash(x):
+    if type(x) is unicode: x=x.encode('utf-8')
+    return bytes(quark_hash.getPoWHash(x))
 
 hash_encode = lambda x: x[::-1].encode('hex')
 hash_decode = lambda x: x.decode('hex')[::-1]
@@ -481,7 +486,7 @@ from ecdsa.util import string_to_number, number_to_string
 def msg_magic(message):
     varint = var_int(len(message))
     encoded_varint = "".join([chr(int(varint[i:i+2], 16)) for i in xrange(0, len(varint), 2)])
-    return "\x18Bitcoin Signed Message:\n" + encoded_varint + message
+    return "\x18Diamond Signed Message:\n" + encoded_varint + message
 
 
 def verify_message(address, sig, message):

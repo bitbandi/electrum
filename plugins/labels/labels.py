@@ -7,9 +7,9 @@ import traceback
 
 import base64
 
-import electrum
-from electrum.plugins import BasePlugin, hook
-from electrum.i18n import _
+import electrum_dmd as electrum
+from electrum_dmd.plugins import BasePlugin, hook
+from electrum_dmd.i18n import _
 
 
 

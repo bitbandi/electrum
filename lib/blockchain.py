@@ -32,7 +32,7 @@ import threading
 import bitcoin
 from bitcoin import *
 
-MAX_TARGET = 0x00000000FFFF0000000000000000000000000000000000000000000000000000
+MAX_TARGET = 0x00000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 
 def serialize_header(res):
     s = int_to_hex(res.get('version'), 4) \
@@ -60,7 +60,7 @@ def hash_header(header):
         return '0' * 64
     if header.get('prev_block_hash') is None:
         header['prev_block_hash'] = '00'*32
-    return hash_encode(Hash(serialize_header(header).decode('hex')))
+    return hash_encode(quarkHash(serialize_header(header).decode('hex')))
 
 
 blockchains = {}
@@ -272,13 +272,13 @@ class Blockchain(util.PrintError):
         if bitcoin.TESTNET:
             return 0, 0
         if index == 0:
-            return 0x1d00ffff, MAX_TARGET
+            return 0x1e0ffff0, MAX_TARGET
         first = self.read_header((index-1) * 2016)
         last = self.read_header(index*2016 - 1)
         # bits to target
         bits = last.get('bits')
         bitsN = (bits >> 24) & 0xff
-        if not (bitsN >= 0x03 and bitsN <= 0x1d):
+        if not (bitsN >= 0x03 and bitsN <= 0x1e):
             raise BaseException("First part of bits should be in [0x03, 0x1d]")
         bitsBase = bits & 0xffffff
         if not (bitsBase >= 0x8000 and bitsBase <= 0x7fffff):

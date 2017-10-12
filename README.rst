@@ -1,4 +1,4 @@
-Electrum - Lightweight Bitcoin client
+Electrum-DMD - Lightweight Diamond client
 =====================================
 
 ::
@@ -6,12 +6,8 @@ Electrum - Lightweight Bitcoin client
   Licence: MIT Licence
   Author: Thomas Voegtlin
   Language: Python
-  Homepage: https://electrum.org/
+  Homepage: https://electrum-dmd.org/
 
-
-.. image:: https://travis-ci.org/spesmilo/electrum.svg?branch=master
-    :target: https://travis-ci.org/spesmilo/electrum
-    :alt: Build Status
 
 
 
@@ -30,7 +26,7 @@ Electrum from its root directory, without installing it on your
 system; all the python dependencies are included in the 'packages'
 directory. To run Electrum from its root directory, just do::
 
-    ./electrum
+    ./electrum-dmd
 
 You can also install Electrum on your system, by running this command::
 
